@@ -31,6 +31,10 @@ $main-color: black;
     &:focus ~ .form-input-label {
       @include shrinkLabel();
     }
+
+    // &:autocomplete ~ .form-input-label {
+    //   @include shrinkLabel();
+    // }
   }
 
   input[type="password"] {
