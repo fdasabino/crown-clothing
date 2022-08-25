@@ -3,10 +3,10 @@ import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import Home from "./routes/home/Home";
-import Navigation from "./routes/navigation/Navigation";
-import Shop from "./routes/shop/Shop";
-import Login from "./routes/login/Login";
+import Home from "./pages/home/Home";
+import Navigation from "./components/navigation/Navigation";
+import Shop from "./pages/shop/Shop";
+import Login from "./pages/auth/Login";
 
 const App = () => {
   return (
@@ -16,7 +16,7 @@ const App = () => {
         theme="colored"
         autoClose={3000}
         hideProgressBar={false}
-        newestOnTop={false}
+        newestOnTop
         closeOnClick
         rtl={false}
         pauseOnFocusLoss
@@ -27,7 +27,7 @@ const App = () => {
         <Route path="/" element={<Navigation />}>
           <Route index element={<Home />} />
           <Route path="shop" element={<Shop />} />
-          <Route path="login" element={<Login />} />
+          <Route path="auth" element={<Login />} />
         </Route>
       </Routes>
     </div>
