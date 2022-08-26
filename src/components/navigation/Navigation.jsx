@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
+import { toast } from "react-toastify";
+import { logoutUser } from "../../utils/firebase";
+import { UserContext } from "../../contexts/UserContext";
 import { Outlet, Link } from "react-router-dom";
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 import "./Navigation.scss";
 
 const Navigation = () => {
+  const { currentUser } = useContext(UserContext);
+
   return (
     <>
       <div className="navigation">
@@ -17,9 +22,21 @@ const Navigation = () => {
             Shop
           </Link>
 
-          <Link to="/auth" className="nav-link">
-            Login
-          </Link>
+          {!currentUser ? (
+            <Link to="/auth" className="nav-link">
+              Login
+            </Link>
+          ) : (
+            <span
+              className="nav-link"
+              onClick={() => {
+                logoutUser();
+                toast.info("You have logged out successfully...");
+              }}
+            >
+              Logout
+            </span>
+          )}
         </div>
       </div>
       <Outlet />

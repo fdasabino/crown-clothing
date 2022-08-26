@@ -8,6 +8,8 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
@@ -23,6 +25,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
+// eslint-disable-next-line
 const firebaseapp = initializeApp(firebaseConfig);
 
 // Log in with Google
@@ -41,11 +44,11 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
   if (!userAuth) return;
 
   const userDocRef = doc(db, "users", userAuth.uid);
-  console.log(userDocRef);
+  // console.log(userDocRef);
 
   const userSnapshot = await getDoc(userDocRef);
-  console.log(userSnapshot);
-  console.log(userSnapshot.exists());
+  // console.log(userSnapshot);
+  // console.log(userSnapshot.exists());
 
   //if user data doesn't exist
   //create/set the document with the data from userAuth in my collection
@@ -84,3 +87,9 @@ export const loginAuthUserWithEmailAndPassword = async (email, password) => {
 
   return await signInWithEmailAndPassword(auth, email, password);
 };
+
+// Logout current user
+export const logoutUser = async () => await signOut(auth);
+
+//Observer for changes in user state
+export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);

@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import {
-  createUserDocumentFromAuth,
-  signInWithGooglePopUp,
-  loginAuthUserWithEmailAndPassword,
-} from "../../utils/firebase";
+import { signInWithGooglePopUp, loginAuthUserWithEmailAndPassword } from "../../utils/firebase";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
 import "./SignInForm.scss";
@@ -32,19 +28,17 @@ const SignInForm = () => {
   };
 
   const loginWithGoogle = async () => {
-    const { user } = await signInWithGooglePopUp();
-    const userDocRef = await createUserDocumentFromAuth(user);
-    console.log(userDocRef);
+    await signInWithGooglePopUp();
   };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const { user } = await loginAuthUserWithEmailAndPassword(email, password);
-      console.log(user);
+      await loginAuthUserWithEmailAndPassword(email, password);
+      // setCurrentUser(user);
       resetFormFields();
-      toast.success("You have been logged in successfully");
+      // toast.success("You have been logged in successfully");
     } catch (error) {
       // switch to different case according to the error
 
