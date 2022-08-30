@@ -14,15 +14,13 @@ export const UserProvider = ({ children }) => {
   const value = { currentUser, setCurrentUser };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener((user) => {
+    return onAuthStateChangedListener((user) => {
       if (user) {
-        toast.success(`You have been successfully logged in as: \n ${user.email}`);
+        toast.success(`Logged in as: \n ${user.email}`);
         createUserDocumentFromAuth(user);
       }
       setCurrentUser(user);
     });
-
-    return unsubscribe;
   }, []);
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

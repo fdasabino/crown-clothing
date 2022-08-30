@@ -1,8 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe&display=swap");
 
 * {
   box-sizing: border-box;
-  font-family: "Nunito", sans-serif;
+  font-family: "Alumni Sans Pinstripe", sans-serif;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
 body {
@@ -17,4 +19,5 @@ a {
 
 .page-header {
   text-align: center;
+  text-transform: uppercase;
 }
