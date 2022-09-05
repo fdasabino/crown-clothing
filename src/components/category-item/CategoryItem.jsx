@@ -2,7 +2,7 @@ import React from "react";
 import { categories } from "../../data";
 import "./CategoryItem.scss";
 
-const Categories = () => {
+const CategoryItem = () => {
   return (
     <div className="categories-container">
       {categories.map((category) => (
@@ -21,4 +21,4 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default CategoryItem;
