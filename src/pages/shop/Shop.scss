@@ -1,7 +1,7 @@
-.products-container {
+.shop-container {
+  width: 100%;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-  gap: 2em;
+  align-items: stretch;
+  flex-wrap: wrap;
 }

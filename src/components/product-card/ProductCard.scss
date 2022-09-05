@@ -1,5 +1,6 @@
 .product-card-container {
-  max-width: 300px;
+  min-width: 250px;
+  max-width: 250px;
   display: flex;
   flex-direction: column;
   height: 350px;
@@ -41,15 +42,15 @@
     height: 5%;
     display: flex;
     justify-content: space-between;
-    font-size: 18px;
+    font-size: 15px;
 
     .card-name {
-      width: 85%;
+      width: 80%;
       margin-bottom: 15px;
     }
 
     .card-price {
-      width: 15%;
+      width: 20%;
     }
   }
 }

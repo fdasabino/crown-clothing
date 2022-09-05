@@ -21,7 +21,11 @@ const CartDropDown = () => {
           <span className="empty-message">Your cart is empty</span>
         )}
       </div>
-      <button disabled={cartItems.length === 0} onClick={goToCheckoutHandler}>
+      <button
+        className="cart-dropdown-button"
+        disabled={cartItems.length === 0}
+        onClick={goToCheckoutHandler}
+      >
         GO TO CHECKOUT
       </button>
     </div>
