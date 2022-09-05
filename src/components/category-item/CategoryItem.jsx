@@ -1,4 +1,6 @@
 import React from "react";
+import Button from "../button/Button";
+import { Link } from "react-router-dom";
 import { categories } from "../../data";
 import "./CategoryItem.scss";
 
@@ -12,8 +14,9 @@ const CategoryItem = () => {
             style={{ backgroundImage: `url(${category.imageUrl})` }}
           />
           <div className="category-body-container" key={category.id}>
-            <h2>{category.title}</h2>
-            <p>Shop</p>
+            <Link to={`/shop/${category.title}`}>
+              <Button buttonType="inverted">{category.title}</Button>
+            </Link>
           </div>
         </div>
       ))}

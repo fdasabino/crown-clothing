@@ -59,11 +59,15 @@
     opacity: 0.7;
     position: absolute;
 
-    h2 {
+    a button {
+      color: #000;
       font-weight: bold;
       margin: 0 6px 0;
       font-size: 22px;
-      color: #4a4a4a;
+
+      &:hover {
+        color: white;
+      }
     }
 
     p {
