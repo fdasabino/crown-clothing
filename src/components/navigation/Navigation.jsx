@@ -3,11 +3,16 @@ import { toast } from "react-toastify";
 import { logoutUser } from "../../utils/firebase";
 import { UserContext } from "../../contexts/UserContext";
 import { CartContext } from "../../contexts/CartContext";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 import CartIcon from "../cart-icon/CartIcon";
 import CartDropDown from "../cart-dropdown/CartDropDown";
-import "./Navigation.scss";
+import {
+  NavigationContainer,
+  LogoContainer,
+  NavLinksContainer,
+  NavLink,
+} from "./Navigation.styles";
 
 const Navigation = () => {
   const ref = useRef();
@@ -31,39 +36,32 @@ const Navigation = () => {
   }, [isCartOpen, setIsCartOpen]);
 
   return (
-    <>
-      <div className="navigation" ref={ref}>
-        <Link to="/" className="logo-container">
-          <div>
-            <CrownLogo className="logo" />
-          </div>
-        </Link>
-        <div className="nav-links-container">
-          <Link to="/shop" className="nav-link">
-            Shop
-          </Link>
+    <NavigationContainer ref={ref}>
+      <LogoContainer to="/">
+        <CrownLogo />
+      </LogoContainer>
+      <NavLinksContainer>
+        <NavLink to="/shop">Shop</NavLink>
 
-          {!currentUser ? (
-            <Link to="/auth" className="nav-link">
-              Login
-            </Link>
-          ) : (
-            <span
-              className="nav-link"
-              onClick={() => {
-                logoutUser();
-                toast.info("You have logged out successfully...");
-              }}
-            >
-              Logout
-            </span>
-          )}
-          <CartIcon />
-        </div>
-        {isCartOpen && <CartDropDown />}
-      </div>
+        {!currentUser ? (
+          <NavLink to="/auth">Login</NavLink>
+        ) : (
+          <NavLink
+            as="span"
+            onClick={() => {
+              logoutUser();
+              toast.info("You have logged out successfully...");
+            }}
+          >
+            Logout
+          </NavLink>
+        )}
+
+        <CartIcon />
+      </NavLinksContainer>
+      {isCartOpen && <CartDropDown />}
       <Outlet />
-    </>
+    </NavigationContainer>
   );
 };
 

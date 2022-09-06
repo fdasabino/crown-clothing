@@ -4,9 +4,9 @@ import {
   createUserDocumentFromAuth,
 } from "../../utils/firebase";
 import { toast } from "react-toastify";
-import "./SignUpForm.scss";
 import FormInput from "../form-input/FormInput";
 import Button from "../button/Button";
+import { SignUpContainer } from "./SignUpForm.styles";
 
 const defaultFormFields = {
   displayName: "",
@@ -40,7 +40,10 @@ const SignUpForm = () => {
     }
 
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(email, password);
+      const { user } = await createAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
       await createUserDocumentFromAuth(user, { displayName });
       resetFormFields();
       toast.success(`Your account ${user.email} has been created successfully`);
@@ -56,7 +59,7 @@ const SignUpForm = () => {
   };
 
   return (
-    <div className="sign-up-container">
+    <SignUpContainer className="sign-up-container">
       <h2>Don't have an account?</h2>
 
       <span>Sign up with your email and password</span>
@@ -99,7 +102,7 @@ const SignUpForm = () => {
 
         <Button type="submit">Sign Up</Button>
       </form>
-    </div>
+    </SignUpContainer>
   );
 };
 

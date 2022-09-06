@@ -1,26 +1,27 @@
 import React from "react";
-import Button from "../button/Button";
 import { Link } from "react-router-dom";
-import { categories } from "../../data";
-import "./CategoryItem.scss";
+import {
+  CategoryContainer,
+  BackgroundImage,
+  Wrapper,
+  CategoryItemContainer,
+} from "./CategoryItem.styles";
 
-const CategoryItem = () => {
+const CategoryItem = ({ categories }) => {
   return (
-    <div className="categories-container">
+    <CategoryContainer>
       {categories.map((category) => (
-        <div key={category.id} className="category-container">
-          <div
-            className="background-image"
-            style={{ backgroundImage: `url(${category.imageUrl})` }}
-          />
-          <div className="category-body-container" key={category.id}>
+        <CategoryItemContainer key={category.id}>
+          <BackgroundImage imageUrl={category.imageUrl} />
+          <Wrapper>
             <Link to={`/shop/${category.title}`}>
-              <Button buttonType="inverted">{category.title}</Button>
+              <h2>{category.title}</h2>
+              <p>Shop Now</p>
             </Link>
-          </div>
-        </div>
+          </Wrapper>
+        </CategoryItemContainer>
       ))}
-    </div>
+    </CategoryContainer>
   );
 };
 
