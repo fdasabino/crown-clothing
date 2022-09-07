@@ -1,10 +1,8 @@
-import React, { useContext } from "react";
-import {
-  AiOutlineClose,
-  AiOutlineArrowLeft,
-  AiOutlineArrowRight,
-} from "react-icons/ai";
-import { CartContext } from "../../contexts/CartContext";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { selectCartItems } from "../../store/cart/cartSelector";
+import { addItemToCart, clearItemFromCart, removeItemFromCart } from "../../store/cart/cartAction";
+import { AiOutlineClose, AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import {
   CheckoutItemContainer,
   ImageContainer,
@@ -15,10 +13,12 @@ import {
 
 const CheckoutItem = ({ cartItem }) => {
   const { name, imageUrl, price, quantity } = cartItem;
-  const { clearItemFromCart, addItemToCart, removeItemFromCart } =
-    useContext(CartContext);
+  const dispatch = useDispatch();
+  const cartItems = useSelector(selectCartItems);
 
-  const clearItemHandler = () => clearItemFromCart(cartItem);
+  const clearItemHandler = () => dispatch(clearItemFromCart(cartItems, cartItem));
+  const addItemHandler = () => dispatch(addItemToCart(cartItems, cartItem));
+  const removeItemHandler = () => dispatch(removeItemFromCart(cartItems, cartItem));
 
   return (
     <CheckoutItemContainer>
@@ -27,12 +27,12 @@ const CheckoutItem = ({ cartItem }) => {
       </ImageContainer>
       <BaseSpan> {name} </BaseSpan>
       <Quantity>
-        <AiOutlineArrowLeft onClick={() => removeItemFromCart(cartItem)} />
+        <AiOutlineArrowLeft className="icon_buttons" onClick={removeItemHandler} />
         <Value>{quantity}</Value>
-        <AiOutlineArrowRight onClick={() => addItemToCart(cartItem)} />
+        <AiOutlineArrowRight className="icon_buttons" onClick={addItemHandler} />
       </Quantity>
       <BaseSpan> ${price}</BaseSpan>
-      <AiOutlineClose onClick={clearItemHandler} />
+      <AiOutlineClose className="icon_buttons clear_item" onClick={clearItemHandler} />
     </CheckoutItemContainer>
   );
 };
