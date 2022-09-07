@@ -11,7 +11,8 @@ import Home from "./pages/home/Home";
 import Navigation from "./components/navigation/Navigation";
 import Footer from "./components/footer/Footer";
 import Shop from "./pages/shop/Shop";
-import Login from "./pages/auth/Login";
+import Login from "./pages/auth/login/Login";
+import SignUp from "./pages/auth/sign-up/SignUp";
 import Checkout from "./pages/checkout/Checkout";
 
 const App = () => {
@@ -48,6 +49,7 @@ const App = () => {
           <Route path="shop/*" element={<Shop />} />
           <Route path="checkout" element={<Checkout />} />
           <Route path="auth" element={<Login />} />
+          <Route path="auth/signup" element={<SignUp />} />
         </Routes>
       </main>
       <Footer />
