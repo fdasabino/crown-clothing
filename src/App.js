@@ -18,8 +18,9 @@ const App = () => {
     return onAuthStateChangedListener((user) => {
       if (user) {
         createUserDocumentFromAuth(user);
+        toast.success(`Logged in as: \n ${user.email}`);
       }
-      dispatch(setCurrentUser(user), toast.success(`Logged in as: \n ${user.email}`));
+      dispatch(setCurrentUser(user));
     });
   }, [dispatch]);
 
