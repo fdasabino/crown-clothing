@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import {
-  signInWithGooglePopUp,
-  loginAuthUserWithEmailAndPassword,
-} from "../../utils/firebase";
+import { signInWithGooglePopUp, loginAuthUserWithEmailAndPassword } from "../../utils/firebase";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
 import FormInput from "../form-input/FormInput";
@@ -62,10 +59,10 @@ const SignInForm = () => {
   };
 
   return (
-    <SignInContainer className="sign-up-container">
-      <h2>Already have an account?</h2>
-
-      <span>Login with your email and password</span>
+    <SignInContainer>
+      <span>
+        <h3>Login with your email and password</h3>
+      </span>
       <form onSubmit={handleFormSubmit}>
         <FormInput
           label="Email"
@@ -84,16 +81,12 @@ const SignInForm = () => {
           onChange={handleFormChange}
           required
         />
-        <ButtonsContainer className="buttons-container">
+        <ButtonsContainer>
           <Button type="submit">Login</Button>
         </ButtonsContainer>
       </form>
-      <Button
-        type="button"
-        buttonType={ButtonTypes.google}
-        onClick={loginWithGoogle}
-      >
-        <div className="buttons-container">
+      <Button type="button" buttonType={ButtonTypes.google} onClick={loginWithGoogle}>
+        <div>
           Login with Google <FcGoogle size={18} />
         </div>
       </Button>
