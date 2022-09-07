@@ -1,17 +1,13 @@
 import React from "react";
 import ProductCard from "../product-card/ProductCard";
-import {
-  CategoryPreviewContainer,
-  Title,
-  Preview,
-} from "./CategoryPreview.styles";
+import { CategoryPreviewContainer, Title, Preview } from "./CategoryPreview.styles";
 
 const CategoryPreview = ({ title, products }) => {
   return (
     <CategoryPreviewContainer>
-      <h2 className="page-header">
+      <span>
         <Title to={title}>{title.toUpperCase()}</Title>
-      </h2>
+      </span>
       <Preview>
         {products
           .filter((_, idx) => idx < 4)

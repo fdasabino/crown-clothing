@@ -9,6 +9,9 @@ export const NavigationContainer = styled.div`
   padding: 0 20px;
   margin-bottom: 3rem;
   z-index: 10;
+  background-color: rgba(255, 255, 255, 0.9);
+  position: fixed;
+  top: 0;
 `;
 
 export const LogoContainer = styled(Link)`
@@ -29,4 +32,9 @@ export const NavLink = styled(Link)`
   padding: 10px 15px;
   cursor: pointer;
   text-transform: uppercase;
+
+  &:hover {
+    scale: 1.3;
+    transition: all 0.3s ease-in-out;
+  }
 `;

@@ -7,11 +7,22 @@ export const CategoryPreviewContainer = styled.div`
   grid-template-columns: (4, 1fr);
   gap: 2em;
   margin-bottom: 2em;
+
+  span {
+    margin: 0 auto;
+    &:hover {
+      scale: 1.1;
+      transition: all 0.3s ease-in-out;
+    }
+  }
 `;
 
 export const Title = styled(Link)`
   font-size: 28px;
   margin-bottom: 25px;
+  padding: 5px;
+  background-color: #399b9b84;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
   cursor: pointer;
 `;
 
