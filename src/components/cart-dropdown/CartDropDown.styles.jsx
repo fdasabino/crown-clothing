@@ -36,6 +36,7 @@ export const CartItems = styled.div`
   display: flex;
   flex-direction: column;
   overflow: scroll;
+  overflow-x: hidden;
 `;
 
 // .cart-dropdown-container {

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const ProductCartContainer = styled.div`
+  min-width: 280px;
   max-width: 100%;
   display: inline-flex;
   flex-direction: column;
