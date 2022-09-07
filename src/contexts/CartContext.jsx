@@ -1,13 +1,11 @@
 import { createContext, useReducer } from "react";
-import { createAction } from "../reducer/reducer";
+import { createAction } from "../reducer/reducerUtils";
 
 import { toast } from "react-toastify";
 
 const addCartItem = (cartItems, productToAdd) => {
   //find if cartItems contains productToAdd
-  const existingCartItem = cartItems.find(
-    (cartItem) => cartItem.id === productToAdd.id
-  );
+  const existingCartItem = cartItems.find((cartItem) => cartItem.id === productToAdd.id);
 
   // if found increment qty
   if (existingCartItem) {
@@ -29,9 +27,7 @@ const addCartItem = (cartItems, productToAdd) => {
 
 const removeCartItem = (cartItems, cartItemToRemove) => {
   // find the cart item to remove
-  const existingCartItem = cartItems.find(
-    (cartItem) => cartItem.id === cartItemToRemove.id
-  );
+  const existingCartItem = cartItems.find((cartItem) => cartItem.id === cartItemToRemove.id);
 
   // check if quantity is equal to 1, if it is remove that item from the cart
   if (existingCartItem.quantity === 1) {
@@ -92,15 +88,14 @@ const cartReducer = (state, action) => {
 };
 
 export const CartProvider = ({ children }) => {
-  const [{ isCartOpen, cartItems, cartCount, cartTotal }, dispatch] =
-    useReducer(cartReducer, INITIAL_STATE);
+  const [{ isCartOpen, cartItems, cartCount, cartTotal }, dispatch] = useReducer(
+    cartReducer,
+    INITIAL_STATE
+  );
 
   const updateCartItemsReducer = (newCartItems) => {
     //generate newCartCount
-    const newCartCount = newCartItems.reduce(
-      (total, cartItem) => total + cartItem.quantity,
-      0
-    );
+    const newCartCount = newCartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
 
     //generate newCartTotal
     const newCartTotal = newCartItems.reduce(

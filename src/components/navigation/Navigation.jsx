@@ -1,9 +1,10 @@
 import React, { useContext, useRef, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Outlet } from "react-router-dom";
 import { toast } from "react-toastify";
 import { logoutUser } from "../../utils/firebase";
-import { UserContext } from "../../contexts/UserContext";
 import { CartContext } from "../../contexts/CartContext";
-import { Outlet } from "react-router-dom";
+import { selectCurrentUser } from "../../store/user/userSelector";
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 import CartIcon from "../cart-icon/CartIcon";
 import CartDropDown from "../cart-dropdown/CartDropDown";
@@ -16,7 +17,8 @@ import {
 
 const Navigation = () => {
   const ref = useRef();
-  const { currentUser } = useContext(UserContext);
+  const currentUser = useSelector(selectCurrentUser);
+
   const { isCartOpen, setIsCartOpen } = useContext(CartContext);
 
   // detect click events to remove cart dropdown
