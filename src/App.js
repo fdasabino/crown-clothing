@@ -6,6 +6,7 @@ import { setCurrentUser } from "./store/user/userAction";
 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import Home from "./pages/home/Home";
 import Navigation from "./components/navigation/Navigation";

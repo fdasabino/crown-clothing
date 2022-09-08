@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import { signInWithGooglePopUp, loginAuthUserWithEmailAndPassword } from "../../utils/firebase";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
@@ -12,6 +13,7 @@ const defaultFormFields = {
 };
 
 const SignInForm = () => {
+  const navigate = useNavigate();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
@@ -29,6 +31,7 @@ const SignInForm = () => {
 
   const loginWithGoogle = async () => {
     await signInWithGooglePopUp();
+    navigate("/");
   };
 
   const handleFormSubmit = async (event) => {
@@ -36,6 +39,7 @@ const SignInForm = () => {
 
     try {
       await loginAuthUserWithEmailAndPassword(email, password);
+      navigate("/");
       // setCurrentUser(user);
       resetFormFields();
       // toast.success("You have been logged in successfully");

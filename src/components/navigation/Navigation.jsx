@@ -1,53 +1,118 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { selectIsCartOpen } from "../../store/cart/cartSelector";
+import { selectCategoriesMap } from "../../store/categories/categoriesSelector";
 import { useSelector } from "react-redux";
-
-import { Outlet } from "react-router-dom";
 import { toast } from "react-toastify";
 import { logoutUser } from "../../utils/firebase";
 import { selectCurrentUser } from "../../store/user/userSelector";
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 import CartIcon from "../cart-icon/CartIcon";
 import CartDropDown from "../cart-dropdown/CartDropDown";
-import {
-  NavigationContainer,
-  LogoContainer,
-  NavLinksContainer,
-  NavLink,
-} from "./Navigation.styles";
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+
+const onLogoutHandler = () => {
+  logoutUser();
+  toast.info("User logged out successfully...");
+};
 
 const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
+  const categoriesMap = useSelector(selectCategoriesMap);
 
   return (
-    <NavigationContainer>
-      <LogoContainer to="/">
-        <CrownLogo />
-      </LogoContainer>
-      <NavLinksContainer>
-        <NavLink to="/shop">Shop</NavLink>
+    <Navbar bg="light" variant="light" expand="lg" fixed="top" className="p-3">
+      <Container className="mx-5">
+        <Navbar.Brand as={Link} to="/">
+          <CrownLogo />
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      </Container>
 
-        {!currentUser ? (
-          <NavLink to="/auth">Login</NavLink>
-        ) : (
-          <NavLink
-            as="span"
-            onClick={() => {
-              logoutUser();
-              toast.info("You have logged out successfully...");
-            }}
-          >
-            Logout
-          </NavLink>
-        )}
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Container className="d-flex justify-content-center">
+          <Nav className="">
+            <Nav.Link as={Link} to="/shop">
+              shop
+            </Nav.Link>
 
-        <CartIcon />
-      </NavLinksContainer>
-      {isCartOpen && <CartDropDown />}
-      <Outlet />
-    </NavigationContainer>
+            <NavDropdown title="Categories" id="basic-nav-dropdown">
+              {Object.keys(categoriesMap).map((title) => {
+                return (
+                  <NavDropdown.Item as={Link} to={`/shop/${title}`} key={title}>
+                    {title}
+                  </NavDropdown.Item>
+                );
+              })}
+            </NavDropdown>
+
+            {!currentUser && (
+              <NavDropdown title="Login Or Sign-Up" id="basic-nav-dropdown">
+                <NavDropdown.Item as={Link} to="/auth">
+                  login
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/auth/signup">
+                  sign-up
+                </NavDropdown.Item>
+              </NavDropdown>
+            )}
+
+            {currentUser && (
+              <NavDropdown
+                title={currentUser && currentUser.email.split("@")[0]}
+                id="basic-nav-dropdown"
+              >
+                <NavDropdown.Item as={Link} to="/">
+                  Dashboard
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/">
+                  Orders
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/">
+                  Something
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item as="button" onClick={onLogoutHandler}>
+                  LOGOUT
+                </NavDropdown.Item>
+              </NavDropdown>
+            )}
+          </Nav>
+        </Container>
+
+        <Container className="d-flex justify-content-center">
+          <CartIcon />
+          {isCartOpen && <CartDropDown />}
+        </Container>
+      </Navbar.Collapse>
+    </Navbar>
   );
 };
 
 export default Navigation;
+
+// {
+//   /* <LogoContainer to="/">
+//         <CrownLogo />
+//       </LogoContainer>
+//       <NavLinksContainer>
+//         <NavLink to="/shop">Shop</NavLink>
+
+//         {!currentUser ? (
+//           <NavLink to="/auth">Login</NavLink>
+//         ) : (
+//           <NavLink
+//             as="span"
+//             onClick={() => {
+//               logoutUser();
+//               toast.info("You have logged out successfully...");
+//             }}
+//           >
+//             Logout
+//           </NavLink>
+//         )}
+
+//       </NavLinksContainer>
+//       */
+// }

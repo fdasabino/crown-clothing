@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import FormInput from "../form-input/FormInput";
 import Button from "../button/Button";
 import { SignUpContainer } from "./SignUpForm.styles";
+import { useNavigate } from "react-router-dom";
 
 const defaultFormFields = {
   displayName: "",
@@ -16,6 +17,7 @@ const defaultFormFields = {
 };
 
 const SignUpForm = () => {
+  const navigate = useNavigate();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
@@ -44,6 +46,7 @@ const SignUpForm = () => {
       await createUserDocumentFromAuth(user, { displayName });
       resetFormFields();
       toast.success(`Your account ${user.email} has been created successfully`);
+      navigate("/");
 
       //leveraging the error code
     } catch (error) {
