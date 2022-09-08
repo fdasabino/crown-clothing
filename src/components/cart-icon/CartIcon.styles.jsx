@@ -12,12 +12,14 @@ export const CartIconContainer = styled.div`
   svg {
     width: 32px;
     height: 32px;
+    filter: invert(0.8);
   }
 `;
 
 export const ItemCount = styled.span`
   position: absolute;
   font-size: 16px;
-  font-weight: 900;
+  font-weight: normal;
   bottom: 6px;
+  color: #ccc;
 `;

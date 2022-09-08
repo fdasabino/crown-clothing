@@ -6,10 +6,11 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { logoutUser } from "../../utils/firebase";
 import { selectCurrentUser } from "../../store/user/userSelector";
-import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
+import CrownLogo from "../../assets/crown.png";
 import CartIcon from "../cart-icon/CartIcon";
 import CartDropDown from "../cart-dropdown/CartDropDown";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { CgMenuRightAlt } from "react-icons/cg";
 
 const onLogoutHandler = () => {
   logoutUser();
@@ -22,12 +23,15 @@ const Navigation = () => {
   const categoriesMap = useSelector(selectCategoriesMap);
 
   return (
-    <Navbar bg="light" variant="light" expand="lg" fixed="top" className="p-3">
+    <Navbar expand="lg" fixed="top" className="p-3 navbar-custom">
       <Container className="mx-5">
         <Navbar.Brand as={Link} to="/">
-          <CrownLogo />
+          <img src={CrownLogo} alt="" />
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle aria-controls="basic-navbar-nav">
+          <span>Menu</span>
+          <CgMenuRightAlt />
+        </Navbar.Toggle>
       </Container>
 
       <Navbar.Collapse id="basic-navbar-nav">
@@ -48,7 +52,7 @@ const Navigation = () => {
             </NavDropdown>
 
             {!currentUser && (
-              <NavDropdown title="Login Or Sign-Up" id="basic-nav-dropdown">
+              <NavDropdown title="Login" id="basic-nav-dropdown">
                 <NavDropdown.Item as={Link} to="/auth">
                   login
                 </NavDropdown.Item>
@@ -91,28 +95,3 @@ const Navigation = () => {
 };
 
 export default Navigation;
-
-// {
-//   /* <LogoContainer to="/">
-//         <CrownLogo />
-//       </LogoContainer>
-//       <NavLinksContainer>
-//         <NavLink to="/shop">Shop</NavLink>
-
-//         {!currentUser ? (
-//           <NavLink to="/auth">Login</NavLink>
-//         ) : (
-//           <NavLink
-//             as="span"
-//             onClick={() => {
-//               logoutUser();
-//               toast.info("You have logged out successfully...");
-//             }}
-//           >
-//             Logout
-//           </NavLink>
-//         )}
-
-//       </NavLinksContainer>
-//       */
-// }

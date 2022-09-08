@@ -8,7 +8,7 @@
   letter-spacing: 1px;
 }
 main {
-  margin: 5rem 0;
+  margin: 10rem 0;
 }
 
 a {
@@ -35,4 +35,51 @@ a {
 
 .icon_buttons:hover {
   scale: 1.2;
+}
+
+// bootstrap overrides
+.navbar-custom {
+  -moz-box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.16);
+  -webkit-box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.16);
+  background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+.navbar-brand img {
+  max-width: 50px;
+  max-height: 50px;
+  filter: invert(1);
+}
+
+.navbar-toggler {
+  border: none !important;
+  font-size: 2rem !important;
+  transition: all 0.3s ease-in-out !important;
+  color: #ccc;
+}
+
+.navbar-toggler span {
+  font-size: 1rem !important;
+  text-transform: uppercase !important;
+  transform: none !important;
+  color: #ccc;
+}
+
+.navbar-toggler:hover {
+  transform: scale(1.1);
+}
+
+.navbar-toggler:focus {
+  box-shadow: none !important;
+  transform: scale(1.2);
+}
+
+.nav-link {
+  transition: all 0.3s ease-in-out !important;
+  font-weight: 600;
+  color: #ccc !important;
+  margin-right: 1rem !important;
+}
+.nav-link:hover {
+  transform: scale(1.1);
 }
