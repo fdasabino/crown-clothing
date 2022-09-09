@@ -1,14 +1,14 @@
 import React from "react";
 import SignUpForm from "../../../components/sign-up-form/SignUpForm";
-import { SignUpContainer } from "./SignUp.styles";
+import "./SignUp.scss";
 
 const SignUp = () => {
   return (
     <>
       <h2 className="page-header">Sign Up</h2>
-      <SignUpContainer>
+      <div className="signup__container">
         <SignUpForm />
-      </SignUpContainer>
+      </div>
     </>
   );
 };

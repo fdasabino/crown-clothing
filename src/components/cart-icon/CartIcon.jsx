@@ -1,11 +1,9 @@
 import React, { useRef, useEffect } from "react";
+import { ReactComponent as ShoppingIcon } from "../../assets/shopping-bag.svg";
 import { useDispatch, useSelector } from "react-redux";
-
 import { selectCartCount, selectIsCartOpen } from "../../store/cart/cartSelector";
 import { setIsCartOpen } from "../../store/cart/cartAction";
-
-import { CartIconContainer, ItemCount } from "./CartIcon.styles";
-import { ReactComponent as ShoppingIcon } from "../../assets/shopping-bag.svg";
+import "./CartIcon.scss";
 
 const CartIcon = () => {
   const ref = useRef();
@@ -13,18 +11,14 @@ const CartIcon = () => {
   const cartCount = useSelector(selectCartCount);
   const isCartOpen = useSelector(selectIsCartOpen);
 
-  // detect click events to remove cart dropdown
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
-      // If the menu is open and the clicked target is not within the menu,
-      // then close the menu
       if (isCartOpen && ref.current && !ref.current.contains(e.target)) {
         dispatch(setIsCartOpen(!isCartOpen));
       }
     };
     document.addEventListener("click", checkIfClickedOutside);
     return () => {
-      // Cleanup the event listener
       document.removeEventListener("click", checkIfClickedOutside);
     };
   }, [isCartOpen, dispatch]);
@@ -32,10 +26,10 @@ const CartIcon = () => {
   const toggleIsCartOpen = () => dispatch(setIsCartOpen(!isCartOpen));
 
   return (
-    <CartIconContainer ref={ref} onClick={toggleIsCartOpen}>
-      <ShoppingIcon className="shopping-icon" />
-      <ItemCount>{cartCount}</ItemCount>
-    </CartIconContainer>
+    <div className="cart-icon__container" ref={ref} onClick={toggleIsCartOpen}>
+      <ShoppingIcon className="cart-icon__shopping-icon" />
+      <span className="cart-icon__item-count">{cartCount}</span>
+    </div>
   );
 };
 

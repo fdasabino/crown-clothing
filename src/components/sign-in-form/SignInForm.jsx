@@ -4,8 +4,8 @@ import { signInWithGooglePopUp, loginAuthUserWithEmailAndPassword } from "../../
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
 import FormInput from "../form-input/FormInput";
-import Button, { ButtonTypes } from "../button/Button";
-import { SignInContainer, ButtonsContainer } from "./SignInForm.styles";
+import Button from "../button/Button";
+import "./SignInForm.scss";
 
 const defaultFormFields = {
   email: "",
@@ -63,7 +63,7 @@ const SignInForm = () => {
   };
 
   return (
-    <SignInContainer>
+    <div className="signin-form__container">
       <span>
         <h3>Login with your email and password</h3>
       </span>
@@ -85,16 +85,16 @@ const SignInForm = () => {
           onChange={handleFormChange}
           required
         />
-        <ButtonsContainer>
+        <div className="signin-form__buttons-container">
           <Button type="submit">Login</Button>
-        </ButtonsContainer>
+        </div>
       </form>
-      <Button type="button" buttonType={ButtonTypes.google} onClick={loginWithGoogle}>
+      <Button type="button" buttonType="google" onClick={loginWithGoogle}>
         <div>
           Login with Google <FcGoogle size={18} />
         </div>
       </Button>
-    </SignInContainer>
+    </div>
   );
 };
 

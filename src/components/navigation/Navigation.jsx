@@ -1,16 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { logoutUser } from "../../utils/firebase";
 import { selectIsCartOpen } from "../../store/cart/cartSelector";
 import { selectCategoriesMap } from "../../store/categories/categoriesSelector";
-import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import { logoutUser } from "../../utils/firebase";
 import { selectCurrentUser } from "../../store/user/userSelector";
-import CrownLogo from "../../assets/crown.png";
-import CartIcon from "../cart-icon/CartIcon";
 import CartDropDown from "../cart-dropdown/CartDropDown";
+import CrownLogo from "../../assets/crown.png";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { CgMenuRightAlt } from "react-icons/cg";
+import CartIcon from "../cart-icon/CartIcon";
+import { toast } from "react-toastify";
+import "./Navigation.scss";
 
 const onLogoutHandler = () => {
   logoutUser();
@@ -37,6 +38,10 @@ const Navigation = () => {
       <Navbar.Collapse id="basic-navbar-nav">
         <Container className="d-flex justify-content-center">
           <Nav className="">
+            <Nav.Link as={Link} to="/">
+              home
+            </Nav.Link>
+
             <Nav.Link as={Link} to="/shop">
               shop
             </Nav.Link>

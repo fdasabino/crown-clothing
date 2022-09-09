@@ -1,12 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  CategoryContainer,
-  BackgroundImage,
-  Wrapper,
-  CategoryItemContainer,
-} from "./CategoryItem.styles";
-
+import "./CategoryItem.scss";
 const categories = [
   {
     id: 1,
@@ -37,19 +31,23 @@ const categories = [
 
 const CategoryItem = () => {
   return (
-    <CategoryContainer>
-      {categories.map((category) => (
-        <CategoryItemContainer key={category.id}>
-          <BackgroundImage imageUrl={category.imageUrl} />
-          <Wrapper>
-            <Link to={`/shop/${category.title}`}>
-              <h2>{category.title}</h2>
-              <p>Shop Now</p>
-            </Link>
-          </Wrapper>
-        </CategoryItemContainer>
-      ))}
-    </CategoryContainer>
+    <div>
+      <div className="category-item__wrapper">
+        {categories.map((category) => (
+          <div key={category.id} className="category-item__card card">
+            <div className="category-item__card-img">
+              <img src={category.imageUrl} alt={category.title} />
+            </div>
+            <div className="category-item__card-links">
+              <Link to={`/shop/${category.title}`}>
+                <h2>{category.title}</h2>
+                <p>Shop Now</p>
+              </Link>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

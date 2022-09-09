@@ -3,13 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectCartItems } from "../../store/cart/cartSelector";
 import { addItemToCart, clearItemFromCart, removeItemFromCart } from "../../store/cart/cartAction";
 import { AiOutlineClose, AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
-import {
-  CheckoutItemContainer,
-  ImageContainer,
-  BaseSpan,
-  Quantity,
-  Value,
-} from "./CheckoutItem.styles";
+import "./CheckoutItem.scss";
 
 const CheckoutItem = ({ cartItem }) => {
   const { name, imageUrl, price, quantity } = cartItem;
@@ -21,19 +15,24 @@ const CheckoutItem = ({ cartItem }) => {
   const removeItemHandler = () => dispatch(removeItemFromCart(cartItems, cartItem));
 
   return (
-    <CheckoutItemContainer>
-      <ImageContainer>
+    <div className="checkout-item__container">
+      <div className="checkout-item__img-container">
         <img src={imageUrl} alt={`${name}`} />
-      </ImageContainer>
-      <BaseSpan> {name} </BaseSpan>
-      <Quantity>
-        <AiOutlineArrowLeft className="icon_buttons" onClick={removeItemHandler} />
-        <Value>{quantity}</Value>
-        <AiOutlineArrowRight className="icon_buttons" onClick={addItemHandler} />
-      </Quantity>
-      <BaseSpan> ${price}</BaseSpan>
-      <AiOutlineClose className="icon_buttons clear_item" onClick={clearItemHandler} />
-    </CheckoutItemContainer>
+      </div>
+      <div className="checkout-item__info-container">
+        <span className="checkout-item__name"> {name} </span>
+        <span className="checkout-item__price"> ${price}</span>
+      </div>
+
+      <div className="checkout-item__quantity-container">
+        <div className="checkout-item__quantity-arrows">
+          <AiOutlineArrowLeft className="icon_buttons" onClick={removeItemHandler} />
+          <span className="checkout-item__quantity">{quantity}</span>
+          <AiOutlineArrowRight className="icon_buttons" onClick={addItemHandler} />
+        </div>
+        <AiOutlineClose className="icon_buttons clear_item" onClick={clearItemHandler} />
+      </div>
+    </div>
   );
 };
 

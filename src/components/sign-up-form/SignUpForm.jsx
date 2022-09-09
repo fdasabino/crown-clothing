@@ -6,7 +6,7 @@ import {
 import { toast } from "react-toastify";
 import FormInput from "../form-input/FormInput";
 import Button from "../button/Button";
-import { SignUpContainer } from "./SignUpForm.styles";
+import "./SignUpForm.scss";
 import { useNavigate } from "react-router-dom";
 
 const defaultFormFields = {
@@ -59,7 +59,7 @@ const SignUpForm = () => {
   };
 
   return (
-    <SignUpContainer>
+    <div className="signup-form__container">
       <h2>Don't have an account?</h2>
       <span>Sign up with your email and password</span>
       <form onSubmit={handleFormSubmit}>
@@ -98,10 +98,9 @@ const SignUpForm = () => {
           onChange={handleFormChange}
           required
         />
-
         <Button type="submit">Sign Up</Button>
       </form>
-    </SignUpContainer>
+    </div>
   );
 };
 

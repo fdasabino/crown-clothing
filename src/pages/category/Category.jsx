@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCategoriesMap } from "../../store/categories/categoriesSelector";
-import { CategoryContainer, Title } from "./Category.styles";
 import ProductCard from "../../components/product-card/ProductCard";
+import "./Category.scss";
 
 const Category = () => {
   const { category } = useParams();
@@ -15,14 +15,14 @@ const Category = () => {
   }, [category, categoriesMap]);
 
   return (
-    <>
-      <Title>{category.toUpperCase()}</Title>
-      <CategoryContainer>
+    <div className="category__container">
+      <h2 className="category__title">{category.toUpperCase()}</h2>
+      <div className="category__wrapper">
         {products?.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
-      </CategoryContainer>
-    </>
+      </div>
+    </div>
   );
 };
 
