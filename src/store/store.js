@@ -6,8 +6,12 @@ import { rootReducer } from "./rootReducer";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
 
-const composeEnhancer = process.env.NODE_ENV === "development" && composeWithDevTools;
 const middleWares = [process.env.NODE_ENV === "development" && logger, thunk].filter(Boolean);
+const composeEnhancer =
+  (process.env.NODE_ENV !== "production" &&
+    window &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+  composeWithDevTools;
 
 const persistConfig = {
   key: "root",
