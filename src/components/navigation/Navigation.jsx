@@ -6,9 +6,7 @@ import { selectIsCartOpen } from "../../store/cart/cartSelector";
 import { selectCategoriesMap } from "../../store/categories/categoriesSelector";
 import { selectCurrentUser } from "../../store/user/userSelector";
 import CartDropDown from "../cart-dropdown/CartDropDown";
-import CrownLogo from "../../assets/crown.png";
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { CgMenuRightAlt } from "react-icons/cg";
+import { Container, Nav, Navbar, NavDropdown, Offcanvas } from "react-bootstrap";
 import CartIcon from "../cart-icon/CartIcon";
 import { toast } from "react-toastify";
 import "./Navigation.scss";
@@ -24,76 +22,83 @@ const Navigation = () => {
   const categoriesMap = useSelector(selectCategoriesMap);
 
   return (
-    <Navbar expand="lg" fixed="top" className="p-3 navbar-custom">
-      <Container className="mx-5">
+    <Navbar fixed="top" expand="lg" bg="light" variant="light" className="py-4">
+      <Container className="px-5">
         <Navbar.Brand as={Link} to="/">
-          <img src={CrownLogo} alt="" />
+          Crown Clothing
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav">
-          <span>Menu</span>
-          <CgMenuRightAlt />
-        </Navbar.Toggle>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       </Container>
 
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Container className="d-flex justify-content-center">
-          <Nav className="">
-            <Nav.Link as={Link} to="/">
-              home
-            </Nav.Link>
+      <Navbar.Collapse id="responsive-navbar-nav">
+        <Navbar.Offcanvas
+          id={`offcanvasNavbar-expand`}
+          aria-labelledby={`offcanvasNavbarLabel-expand`}
+          placement="end"
+        >
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title id={`offcanvasNavbarLabel-expand`}>MENU</Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body>
+            <Container className="d-flex justify-content-center align-items-center px-5">
+              <Nav>
+                <Nav.Link as={Link} to="/">
+                  home
+                </Nav.Link>
 
-            <Nav.Link as={Link} to="/shop">
-              shop
-            </Nav.Link>
+                <Nav.Link as={Link} to="/shop">
+                  shop
+                </Nav.Link>
 
-            <NavDropdown title="Categories" id="basic-nav-dropdown">
-              {Object.keys(categoriesMap).map((title) => {
-                return (
-                  <NavDropdown.Item as={Link} to={`/shop/${title}`} key={title}>
-                    {title}
-                  </NavDropdown.Item>
-                );
-              })}
-            </NavDropdown>
+                <NavDropdown title="Categories" id="basic-nav-dropdown">
+                  {Object.keys(categoriesMap).map((title) => {
+                    return (
+                      <NavDropdown.Item as={Link} to={`/shop/${title}`} key={title}>
+                        {title}
+                      </NavDropdown.Item>
+                    );
+                  })}
+                </NavDropdown>
 
-            {!currentUser && (
-              <NavDropdown title="Login" id="basic-nav-dropdown">
-                <NavDropdown.Item as={Link} to="/auth">
-                  login
-                </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/auth/signup">
-                  sign-up
-                </NavDropdown.Item>
-              </NavDropdown>
-            )}
+                {!currentUser && (
+                  <NavDropdown title="Login" id="basic-nav-dropdown">
+                    <NavDropdown.Item as={Link} to="/auth">
+                      login
+                    </NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/auth/signup">
+                      sign-up
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                )}
 
-            {currentUser && (
-              <NavDropdown
-                title={currentUser && currentUser.email.split("@")[0]}
-                id="basic-nav-dropdown"
-              >
-                <NavDropdown.Item as={Link} to="/">
-                  Dashboard
-                </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/">
-                  Orders
-                </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/">
-                  Something
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item as="button" onClick={onLogoutHandler}>
-                  LOGOUT
-                </NavDropdown.Item>
-              </NavDropdown>
-            )}
-          </Nav>
-        </Container>
-
-        <Container className="d-flex justify-content-center">
-          <CartIcon />
-          {isCartOpen && <CartDropDown />}
-        </Container>
+                {currentUser && (
+                  <NavDropdown
+                    title={currentUser && currentUser.email.split("@")[0]}
+                    id="basic-nav-dropdown"
+                  >
+                    <NavDropdown.Item as={Link} to="/">
+                      Dashboard
+                    </NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/">
+                      Orders
+                    </NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/">
+                      Something
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item as="button" onClick={onLogoutHandler}>
+                      LOGOUT
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                )}
+                <Container className="d-flex justify-content-center align-items-center">
+                  <CartIcon />
+                  {isCartOpen && <CartDropDown />}
+                </Container>
+              </Nav>
+            </Container>
+          </Offcanvas.Body>
+        </Navbar.Offcanvas>
       </Navbar.Collapse>
     </Navbar>
   );

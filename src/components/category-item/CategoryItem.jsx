@@ -34,17 +34,17 @@ const CategoryItem = () => {
     <div>
       <div className="category-item__wrapper">
         {categories.map((category) => (
-          <div key={category.id} className="category-item__card card">
-            <div className="category-item__card-img">
-              <img src={category.imageUrl} alt={category.title} />
-            </div>
-            <div className="category-item__card-links">
-              <Link to={`/shop/${category.title}`}>
+          <Link key={category.id} to={`/shop/${category.title}`}>
+            <div className="category-item__card card">
+              <div className="category-item__card-img">
+                <img src={category.imageUrl} alt={category.title} />
+              </div>
+              <div className="category-item__card-links">
                 <h2>{category.title}</h2>
                 <p>Shop Now</p>
-              </Link>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

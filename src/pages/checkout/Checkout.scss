@@ -3,13 +3,15 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 3rem;
 
   .checkout__card-container {
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 1rem;
   }
+}
+.accordion-button {
+  text-transform: uppercase !important;
 }

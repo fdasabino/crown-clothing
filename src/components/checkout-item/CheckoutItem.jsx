@@ -22,15 +22,18 @@ const CheckoutItem = ({ cartItem }) => {
       <div className="checkout-item__info-container">
         <span className="checkout-item__name"> {name} </span>
         <span className="checkout-item__price"> ${price}</span>
-      </div>
-
-      <div className="checkout-item__quantity-container">
-        <div className="checkout-item__quantity-arrows">
-          <AiOutlineArrowLeft className="icon_buttons" onClick={removeItemHandler} />
-          <span className="checkout-item__quantity">{quantity}</span>
-          <AiOutlineArrowRight className="icon_buttons" onClick={addItemHandler} />
+        <div className="checkout-item__quantity-container">
+          <div className="checkout-item__quantity-arrows">
+            <AiOutlineArrowLeft className="icon_buttons" onClick={removeItemHandler} />
+            <span className="checkout-item__quantity">{quantity}</span>
+            <AiOutlineArrowRight className="icon_buttons" onClick={addItemHandler} />
+          </div>
         </div>
-        <AiOutlineClose className="icon_buttons clear_item" onClick={clearItemHandler} />
+
+        <AiOutlineClose
+          className="icon_buttons clear_item checkout-item__clear-item"
+          onClick={clearItemHandler}
+        />
       </div>
     </div>
   );
