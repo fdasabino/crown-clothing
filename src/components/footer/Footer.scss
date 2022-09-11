@@ -1,8 +1,28 @@
 .footer__container {
   height: 50px;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   background-color: rgba(146, 143, 143, 0.9) !important;
   position: fixed;
   bottom: 0;
   width: 100%;
+  height: fit-content;
+  padding: 10px 10px 0 10px;
+
+  .footer__logo {
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+
+    a {
+      color: #000;
+    }
+
+    .logo__icon {
+      font-size: 25px;
+      color: red;
+    }
+  }
 }

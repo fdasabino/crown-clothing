@@ -1,6 +1,13 @@
 // bootstrap overrides
-.navbar-custom {
-  background-color: rgba(220, 221, 221, 0.9) !important;
+.logo {
+  display: flex;
+  align-items: center;
+  letter-spacing: 0;
+
+  .logo__icon {
+    font-size: 25px;
+    color: red;
+  }
 }
 
 .navbar-toggler {

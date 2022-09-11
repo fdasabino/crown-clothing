@@ -9,6 +9,7 @@ import CartDropDown from "../cart-dropdown/CartDropDown";
 import { Container, Nav, Navbar, NavDropdown, Offcanvas } from "react-bootstrap";
 import CartIcon from "../cart-icon/CartIcon";
 import { toast } from "react-toastify";
+import { AiOutlineCrown } from "react-icons/ai";
 import "./Navigation.scss";
 
 const onLogoutHandler = () => {
@@ -30,7 +31,9 @@ const Navigation = () => {
     <Navbar fixed="top" expand="lg" bg="light" variant="light" className="py-4">
       <Container className="px-4">
         <Navbar.Brand as={Link} to="/">
-          Crown Clothing
+          <div className="logo">
+            Crown <AiOutlineCrown className="logo__icon" /> Clothing
+          </div>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={handleShow} />
       </Container>
