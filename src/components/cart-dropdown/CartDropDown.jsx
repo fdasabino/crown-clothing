@@ -6,7 +6,7 @@ import CartItem from "../cart-item/CartItem";
 import Button from "../../components/button/Button";
 import "./CartDropDown.scss";
 
-const CartDropDown = () => {
+const CartDropDown = ({ handleClose }) => {
   const cartItems = useSelector(selectCartItems);
   const navigate = useNavigate();
 
@@ -23,7 +23,13 @@ const CartDropDown = () => {
           <span className="cart-dropdown__empty-message">Your cart is empty</span>
         )}
       </div>
-      <Button disabled={cartItems.length === 0} onClick={goToCheckoutHandler}>
+      <Button
+        disabled={cartItems.length === 0}
+        onClick={() => {
+          goToCheckoutHandler();
+          handleClose();
+        }}
+      >
         GO TO CHECKOUT
       </Button>
     </div>

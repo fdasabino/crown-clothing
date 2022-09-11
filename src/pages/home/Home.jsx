@@ -1,21 +1,23 @@
 import { Link, Outlet } from "react-router-dom";
 import CategoryItem from "../../components/category-item/CategoryItem";
 import Button from "../../components/button/Button";
+import "./Home.scss";
 
 const Home = () => {
   return (
     <div>
       {/* <!-- HERO SECTION--> */}
       <div className="container">
-        <section className="hero pb-3 bg-cover bg-center d-flex align-items-center">
+        <section className="hero pb-2 bg-cover d-flex align-items-center">
+          <div className="circle" />
           <div className="container py-5">
             <div className="row px-4 px-lg-5">
               <div className="col-lg-6">
-                <p className="text-muted small text-uppercase mb-2">New Inspiration 2020</p>
-                <h1 className="h2 text-uppercase mb-3">20% off on new season</h1>
+                <p className="text-white small text-uppercase mb-2">New Inspiration 2020</p>
+                <h2 className="text-white text-uppercase mb-3">20% off on new season</h2>
                 <div className="link-width">
                   <Link to="/shop">
-                    <Button>Browse collections</Button>
+                    <Button buttonType="inverted">Browse collections</Button>
                   </Link>
                 </div>
               </div>

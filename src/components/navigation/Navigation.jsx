@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { logoutUser } from "../../utils/firebase";
@@ -17,43 +17,54 @@ const onLogoutHandler = () => {
 };
 
 const Navigation = () => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
   const categoriesMap = useSelector(selectCategoriesMap);
 
   return (
     <Navbar fixed="top" expand="lg" bg="light" variant="light" className="py-4">
-      <Container className="px-5">
+      <Container className="px-4">
         <Navbar.Brand as={Link} to="/">
           Crown Clothing
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={handleShow} />
       </Container>
 
       <Navbar.Collapse id="responsive-navbar-nav">
         <Navbar.Offcanvas
+          show={show}
           id={`offcanvasNavbar-expand`}
           aria-labelledby={`offcanvasNavbarLabel-expand`}
           placement="end"
         >
-          <Offcanvas.Header closeButton>
+          <Offcanvas.Header closeButton onClick={handleClose}>
             <Offcanvas.Title id={`offcanvasNavbarLabel-expand`}>MENU</Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
             <Container className="d-flex justify-content-center align-items-center px-5">
               <Nav>
-                <Nav.Link as={Link} to="/">
+                <Nav.Link as={Link} to="/" onClick={handleClose}>
                   home
                 </Nav.Link>
 
-                <Nav.Link as={Link} to="/shop">
+                <Nav.Link as={Link} to="/shop" onClick={handleClose}>
                   shop
                 </Nav.Link>
 
                 <NavDropdown title="Categories" id="basic-nav-dropdown">
                   {Object.keys(categoriesMap).map((title) => {
                     return (
-                      <NavDropdown.Item as={Link} to={`/shop/${title}`} key={title}>
+                      <NavDropdown.Item
+                        as={Link}
+                        to={`/shop/${title}`}
+                        key={title}
+                        onClick={handleClose}
+                      >
                         {title}
                       </NavDropdown.Item>
                     );
@@ -62,10 +73,10 @@ const Navigation = () => {
 
                 {!currentUser && (
                   <NavDropdown title="Login" id="basic-nav-dropdown">
-                    <NavDropdown.Item as={Link} to="/auth">
+                    <NavDropdown.Item as={Link} to="/auth" onClick={handleClose}>
                       login
                     </NavDropdown.Item>
-                    <NavDropdown.Item as={Link} to="/auth/signup">
+                    <NavDropdown.Item as={Link} to="/auth/signup" onClick={handleClose}>
                       sign-up
                     </NavDropdown.Item>
                   </NavDropdown>
@@ -76,24 +87,30 @@ const Navigation = () => {
                     title={currentUser && currentUser.email.split("@")[0]}
                     id="basic-nav-dropdown"
                   >
-                    <NavDropdown.Item as={Link} to="/">
+                    <NavDropdown.Item as={Link} to="/" onClick={handleClose}>
                       Dashboard
                     </NavDropdown.Item>
-                    <NavDropdown.Item as={Link} to="/">
+                    <NavDropdown.Item as={Link} to="/" onClick={handleClose}>
                       Orders
                     </NavDropdown.Item>
-                    <NavDropdown.Item as={Link} to="/">
+                    <NavDropdown.Item as={Link} to="/" onClick={handleClose}>
                       Something
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item as="button" onClick={onLogoutHandler}>
+                    <NavDropdown.Item
+                      as="button"
+                      onClick={() => {
+                        onLogoutHandler();
+                        handleClose();
+                      }}
+                    >
                       LOGOUT
                     </NavDropdown.Item>
                   </NavDropdown>
                 )}
                 <Container className="d-flex justify-content-center align-items-center">
                   <CartIcon />
-                  {isCartOpen && <CartDropDown />}
+                  {isCartOpen && <CartDropDown handleClose={handleClose} />}
                 </Container>
               </Nav>
             </Container>
