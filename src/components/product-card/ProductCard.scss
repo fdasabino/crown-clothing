@@ -3,12 +3,12 @@
   max-width: 100%;
   display: inline-flex;
   flex-direction: column;
-  height: 350px;
   align-items: center;
+  height: 350px;
   position: relative;
 
   img {
-    width: 100%;
+    max-width: 250px;
     height: 95%;
     object-fit: cover;
     margin-bottom: 5px;
@@ -34,10 +34,11 @@
   }
 
   .product-card__footer {
-    width: 100%;
+    width: 250px;
     height: 5%;
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
     font-size: 18px;
   }
 
