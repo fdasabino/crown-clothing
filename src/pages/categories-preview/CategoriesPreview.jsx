@@ -1,15 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import {
-  selectCategoriesMap,
-  selectCategoriesLoading,
-} from "../../store/categories/categoriesSelector";
+import { selectCategoriesMap, selectIsLoading } from "../../store/categories/categoriesSelector";
 import Spinner from "../../components/spinner/Spinner";
 import CategoryPreview from "../../components/category-preview/CategoryPreview";
 
 const CategoriesPreview = () => {
   const categoriesMap = useSelector(selectCategoriesMap);
-  const isLoading = useSelector(selectCategoriesLoading);
+  const isLoading = useSelector(selectIsLoading);
 
   return (
     <div className="category-preview__container">

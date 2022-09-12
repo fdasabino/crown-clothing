@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import {
-  selectCategoriesLoading,
-  selectCategoriesMap,
-} from "../../store/categories/categoriesSelector";
+import { selectIsLoading, selectCategoriesMap } from "../../store/categories/categoriesSelector";
 import Spinner from "../../components/spinner/Spinner";
 import ProductCard from "../../components/product-card/ProductCard";
 import "./Category.scss";
@@ -12,7 +9,7 @@ import "./Category.scss";
 const Category = () => {
   const { category } = useParams();
   const categoriesMap = useSelector(selectCategoriesMap);
-  const isLoading = useSelector(selectCategoriesLoading);
+  const isLoading = useSelector(selectIsLoading);
   const [products, setProducts] = useState(categoriesMap[category]);
 
   useEffect(() => {

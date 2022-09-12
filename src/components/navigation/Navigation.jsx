@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { logoutUser } from "../../utils/firebase";
 import { selectIsCartOpen } from "../../store/cart/cartSelector";
-import { selectCategoriesMap } from "../../store/categories/categoriesSelector";
+import { selectCategoriesMap, selectIsLoading } from "../../store/categories/categoriesSelector";
 import { selectCurrentUser } from "../../store/user/userSelector";
 import CartDropDown from "../cart-dropdown/CartDropDown";
 import { Container, Nav, Navbar, NavDropdown, Offcanvas } from "react-bootstrap";
@@ -11,6 +11,7 @@ import CartIcon from "../cart-icon/CartIcon";
 import { toast } from "react-toastify";
 import { AiOutlineCrown } from "react-icons/ai";
 import "./Navigation.scss";
+import Spinner from "../spinner/Spinner";
 
 const onLogoutHandler = () => {
   logoutUser();
@@ -26,6 +27,7 @@ const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
   const categoriesMap = useSelector(selectCategoriesMap);
+  const isLoading = useSelector(selectIsLoading);
 
   return (
     <Navbar fixed="top" expand="lg" bg="light" variant="light" className="py-4">
@@ -60,18 +62,22 @@ const Navigation = () => {
                 </Nav.Link>
 
                 <NavDropdown title="Categories" id="basic-nav-dropdown">
-                  {Object.keys(categoriesMap).map((title) => {
-                    return (
-                      <NavDropdown.Item
-                        as={Link}
-                        to={`/shop/${title}`}
-                        key={title}
-                        onClick={handleClose}
-                      >
-                        {title}
-                      </NavDropdown.Item>
-                    );
-                  })}
+                  {isLoading ? (
+                    <Spinner />
+                  ) : (
+                    Object.keys(categoriesMap).map((title) => {
+                      return (
+                        <NavDropdown.Item
+                          as={Link}
+                          to={`/shop/${title}`}
+                          key={title}
+                          onClick={handleClose}
+                        >
+                          {title}
+                        </NavDropdown.Item>
+                      );
+                    })
+                  )}
                 </NavDropdown>
 
                 {!currentUser && (
