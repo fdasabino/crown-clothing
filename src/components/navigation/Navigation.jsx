@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../utils/firebase";
 import { selectIsCartOpen } from "../../store/cart/cartSelector";
 import { selectCategoriesMap, selectIsLoading } from "../../store/categories/categoriesSelector";
@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { AiOutlineCrown } from "react-icons/ai";
 import "./Navigation.scss";
 import Spinner from "../spinner/Spinner";
+import { fetchCategoriesStart } from "../../store/categories/categoriesAction";
 
 const onLogoutHandler = () => {
   logoutUser();
@@ -19,6 +20,7 @@ const onLogoutHandler = () => {
 };
 
 const Navigation = () => {
+  const dispatch = useDispatch();
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -28,6 +30,10 @@ const Navigation = () => {
   const isCartOpen = useSelector(selectIsCartOpen);
   const categoriesMap = useSelector(selectCategoriesMap);
   const isLoading = useSelector(selectIsLoading);
+
+  useEffect(() => {
+    dispatch(fetchCategoriesStart());
+  }, [dispatch]);
 
   return (
     <Navbar fixed="top" expand="lg" bg="light" variant="light" className="py-4">
