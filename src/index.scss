@@ -40,3 +40,8 @@ a {
 .icon_buttons:hover {
   scale: 1.2;
 }
+
+// bootstrap overrides
+.bg-light {
+  background-color: rgba(0, 0, 0, 0.2) !important;
+}

@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { selectCartItems, selectCartTotal } from "../../store/cart/cartSelector";
 import CheckoutItem from "../../components/checkout-item/CheckoutItem";
 import Button from "../../components/button/Button";
+import PaymentForm from "../../components/payment-form/PaymentForm";
 import { Accordion } from "react-bootstrap";
 import "./Checkout.scss";
 
@@ -45,7 +46,7 @@ const Checkout = () => {
           </Accordion>
         )}
 
-        <div className="row py-5 p-4 bg-white d-flex align-items-center shadow-sm">
+        <div className="row py-5  bg-white d-flex align-items-start shadow-sm">
           <div className="col-lg-6">
             <div className="bg-light px-4 py-3 text-uppercase font-weight-bold">Coupon code</div>
             <div className="p-4">
@@ -92,11 +93,10 @@ const Checkout = () => {
                   <h5 className="font-weight-bold">${cartTotal}</h5>
                 </li>
               </ul>
-              <Button to="/" disabled={cartTotal === 0}>
-                Proceed to checkout
-              </Button>
             </div>
           </div>
+
+          <PaymentForm cartTotal={cartTotal} />
         </div>
       </div>
     </div>

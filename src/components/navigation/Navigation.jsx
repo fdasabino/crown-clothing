@@ -35,7 +35,7 @@ const Navigation = () => {
   }, [dispatch]);
 
   return (
-    <Navbar fixed="top" expand="lg" bg="light" variant="light" className="py-4">
+    <Navbar fixed="top" expand="lg" className="py-4 bg-nav">
       <Container className="px-4">
         <Navbar.Brand as={Link} to="/">
           <div className="logo">
