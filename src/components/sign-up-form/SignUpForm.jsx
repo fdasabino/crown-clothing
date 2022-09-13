@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import {
-  createAuthUserWithEmailAndPassword,
-  createUserDocumentFromAuth,
-} from "../../utils/firebase";
+import { useDispatch } from "react-redux";
+import { signUpStart } from "../../store/user/userAction";
 import { toast } from "react-toastify";
 import FormInput from "../form-input/FormInput";
 import Button from "../button/Button";
@@ -17,6 +15,7 @@ const defaultFormFields = {
 };
 
 const SignUpForm = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
@@ -42,10 +41,9 @@ const SignUpForm = () => {
     }
 
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(email, password);
-      await createUserDocumentFromAuth(user, { displayName });
+      dispatch(signUpStart(email, password, displayName));
       resetFormFields();
-      toast.success(`Your account ${user.email} has been created successfully`);
+      toast.success(`Your account ${email} has been created successfully`);
       navigate("/");
 
       //leveraging the error code

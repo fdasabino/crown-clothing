@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
-import { createUserDocumentFromAuth, onAuthStateChangedListener } from "./utils/firebase";
-import { setCurrentUser } from "./store/user/userAction";
+import { checkUserSession } from "./store/user/userAction";
+import { useDispatch } from "react-redux";
 
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -18,15 +17,8 @@ import Checkout from "./pages/checkout/Checkout";
 
 const App = () => {
   const dispatch = useDispatch();
-
   useEffect(() => {
-    return onAuthStateChangedListener((user) => {
-      if (user) {
-        createUserDocumentFromAuth(user);
-        toast.success(`Logged in as: \n ${user.email}`);
-      }
-      dispatch(setCurrentUser(user));
-    });
+    dispatch(checkUserSession());
   }, [dispatch]);
 
   return (

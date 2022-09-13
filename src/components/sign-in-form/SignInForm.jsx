@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
-import { signInWithGooglePopUp, loginAuthUserWithEmailAndPassword } from "../../utils/firebase";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { googleSignInStart, emailSignInStart } from "../../store/user/userAction";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
 import FormInput from "../form-input/FormInput";
@@ -13,6 +14,7 @@ const defaultFormFields = {
 };
 
 const SignInForm = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
@@ -29,20 +31,18 @@ const SignInForm = () => {
     setFormFields(defaultFormFields);
   };
 
-  const loginWithGoogle = async () => {
-    await signInWithGooglePopUp();
-    navigate("/");
+  const loginWithGoogle = () => {
+    dispatch(googleSignInStart());
   };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      await loginAuthUserWithEmailAndPassword(email, password);
+      dispatch(emailSignInStart(email, password));
       navigate("/");
-      // setCurrentUser(user);
       resetFormFields();
-      // toast.success("You have been logged in successfully");
+      toast.success(`You're now logged in as ${email}`);
     } catch (error) {
       // switch to different case according to the error
 
@@ -89,7 +89,7 @@ const SignInForm = () => {
           <Button type="submit">Login</Button>
         </div>
       </form>
-      <Button type="button" buttonType="google" onClick={loginWithGoogle}>
+      <Button type="button" buttonType="google" onClick={() => loginWithGoogle()}>
         <div>
           Login with Google <FcGoogle size={18} />
         </div>

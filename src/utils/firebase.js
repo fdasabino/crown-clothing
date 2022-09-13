@@ -44,7 +44,9 @@ googleProvider.setCustomParameters({
 });
 
 export const auth = getAuth();
-export const signInWithGooglePopUp = () => signInWithPopup(auth, googleProvider);
+export const signInWithGooglePopup = () => {
+  signInWithPopup(auth, googleProvider);
+};
 export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
 
 export const db = getFirestore();
@@ -96,7 +98,7 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
     }
   }
   // if user data exists
-  return userDocRef;
+  return userSnapshot;
   //return userDocRef
 };
 
@@ -119,3 +121,16 @@ export const logoutUser = async () => await signOut(auth);
 
 //Observer for changes in user state
 export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unsubscribe();
+        resolve(userAuth);
+      },
+      reject
+    );
+  });
+};

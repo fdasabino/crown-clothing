@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { signOutStart } from "../../store/user/userAction";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutUser } from "../../utils/firebase";
 import { selectIsCartOpen } from "../../store/cart/cartSelector";
 import { selectCategoriesMap, selectIsLoading } from "../../store/categories/categoriesSelector";
 import { selectCurrentUser } from "../../store/user/userSelector";
@@ -14,23 +14,20 @@ import "./Navigation.scss";
 import Spinner from "../spinner/Spinner";
 import { fetchCategoriesStart } from "../../store/categories/categoriesAction";
 
-const onLogoutHandler = () => {
-  logoutUser();
-  toast.info("User logged out successfully...");
-};
-
 const Navigation = () => {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
   const categoriesMap = useSelector(selectCategoriesMap);
   const isLoading = useSelector(selectIsLoading);
 
+  const onLogoutHandler = () => {
+    dispatch(signOutStart());
+    toast.info("User logged out successfully...");
+  };
   useEffect(() => {
     dispatch(fetchCategoriesStart());
   }, [dispatch]);
@@ -99,7 +96,7 @@ const Navigation = () => {
 
                 {currentUser && (
                   <NavDropdown
-                    title={currentUser && currentUser.email.split("@")[0]}
+                    title={currentUser.displayName.split(" ")[0] || currentUser.email.split("@")[0]}
                     id="basic-nav-dropdown"
                   >
                     <NavDropdown.Item as={Link} to="/" onClick={handleClose}>
