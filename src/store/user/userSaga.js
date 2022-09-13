@@ -6,14 +6,15 @@ import {
   signUpSuccess,
   signOutSuccess,
   signOutFailed,
+  signUpFailed,
 } from "./userAction";
 import {
   getCurrentUser,
   createUserDocumentFromAuth,
   signInWithGooglePopup,
-  loginAuthUserWithEmailAndPassword,
+  signInAuthUserWithEmailAndPassword,
   createAuthUserWithEmailAndPassword,
-  logoutUser,
+  signOutUser,
 } from "../../utils/firebase";
 
 export function* getSnapshotFromUserAuth(userAuth, additionalDetails) {
@@ -36,14 +37,14 @@ export function* signInWithGoogle() {
 
 export function* signInWithEmail({ payload: { email, password } }) {
   try {
-    const { user } = yield call(loginAuthUserWithEmailAndPassword, email, password);
+    const { user } = yield call(signInAuthUserWithEmailAndPassword, email, password);
     yield call(getSnapshotFromUserAuth, user);
   } catch (error) {
     yield put(signInFailed(error));
   }
 }
 
-export function* isUSerAuthenticated() {
+export function* isUserAuthenticated() {
   try {
     const userAuth = yield call(getCurrentUser);
     if (!userAuth) return;
@@ -58,13 +59,13 @@ export function* signUp({ payload: { email, password, displayName } }) {
     const { user } = yield call(createAuthUserWithEmailAndPassword, email, password);
     yield put(signUpSuccess(user, { displayName }));
   } catch (error) {
-    yield put(signInFailed(error));
+    yield put(signUpFailed(error));
   }
 }
 
 export function* signOut() {
   try {
-    yield call(logoutUser);
+    yield call(signOutUser);
     yield put(signOutSuccess());
   } catch (error) {
     yield put(signOutFailed(error));
@@ -79,6 +80,10 @@ export function* onGoogleSignInStart() {
   yield takeLatest(USER_ACTION_TYPES.GOOGLE_SIGN_IN_START, signInWithGoogle);
 }
 
+export function* onCheckUserSession() {
+  yield takeLatest(USER_ACTION_TYPES.CHECK_USER_SESSION, isUserAuthenticated);
+}
+
 export function* onEmailSignInStart() {
   yield takeLatest(USER_ACTION_TYPES.EMAIL_SIGN_IN_START, signInWithEmail);
 }
@@ -89,10 +94,6 @@ export function* onSignUpStart() {
 
 export function* onSignUpSuccess() {
   yield takeLatest(USER_ACTION_TYPES.SIGN_UP_SUCCESS, signInAfterSignUp);
-}
-
-export function* onCheckUserSession() {
-  yield takeLatest(USER_ACTION_TYPES.CHECK_USER_SESSION, isUSerAuthenticated);
 }
 
 export function* onSignOutStart() {

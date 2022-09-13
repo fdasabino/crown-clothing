@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signOutStart } from "../../store/user/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsCartOpen } from "../../store/cart/cartSelector";
@@ -15,6 +15,7 @@ import Spinner from "../spinner/Spinner";
 import { fetchCategoriesStart } from "../../store/categories/categoriesAction";
 
 const Navigation = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -27,6 +28,7 @@ const Navigation = () => {
   const onLogoutHandler = () => {
     dispatch(signOutStart());
     toast.info("User logged out successfully...");
+    navigate("/");
   };
   useEffect(() => {
     dispatch(fetchCategoriesStart());

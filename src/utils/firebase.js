@@ -44,22 +44,22 @@ googleProvider.setCustomParameters({
 });
 
 export const auth = getAuth();
-export const signInWithGooglePopup = () => {
-  signInWithPopup(auth, googleProvider);
-};
+export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
 export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
 
 export const db = getFirestore();
 
-export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
-  const batch = writeBatch(db);
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd, field) => {
   const collectionRef = collection(db, collectionKey);
+  const batch = writeBatch(db);
 
   objectsToAdd.forEach((object) => {
     const docRef = doc(collectionRef, object.title.toLowerCase());
     batch.set(docRef, object);
   });
+
   await batch.commit();
+  console.log("done");
 };
 
 export const getCategoriesAndDocuments = async () => {
@@ -67,59 +67,49 @@ export const getCategoriesAndDocuments = async () => {
   const q = query(collectionRef);
 
   const querySnapshot = await getDocs(q);
-
   return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
 };
 
-export const createUserDocumentFromAuth = async (userAuth, additionalInformation) => {
+export const createUserDocumentFromAuth = async (userAuth, additionalInformation = {}) => {
   if (!userAuth) return;
 
   const userDocRef = doc(db, "users", userAuth.uid);
 
   const userSnapshot = await getDoc(userDocRef);
 
-  //if user data doesn't exist
-  //create/set the document with the data from userAuth in my collection
   if (!userSnapshot.exists()) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
-    const lastSignInTime = new Date();
 
     try {
       await setDoc(userDocRef, {
         displayName,
         email,
         createdAt,
-        lastSignInTime,
         ...additionalInformation,
       });
     } catch (error) {
-      console.log("Error creating user", error.message);
+      console.log("error creating the user", error.message);
     }
   }
-  // if user data exists
+
   return userSnapshot;
-  //return userDocRef
 };
 
-// Create user with Username and password
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
 
   return await createUserWithEmailAndPassword(auth, email, password);
 };
 
-// Login user with Username and password
-export const loginAuthUserWithEmailAndPassword = async (email, password) => {
+export const signInAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
 
   return await signInWithEmailAndPassword(auth, email, password);
 };
 
-// Logout current user
-export const logoutUser = async () => await signOut(auth);
+export const signOutUser = async () => await signOut(auth);
 
-//Observer for changes in user state
 export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
 
 export const getCurrentUser = () => {
