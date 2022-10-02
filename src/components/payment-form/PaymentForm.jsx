@@ -13,7 +13,6 @@ const PaymentForm = () => {
   const [processingPayment, setProcessingPayment] = useState(false);
   const amount = useSelector(selectCartTotal);
   const currentUser = useSelector(selectCurrentUser);
-  const { displayName, email } = currentUser;
 
   const paymentHandler = async (e) => {
     e.preventDefault();
@@ -40,8 +39,8 @@ const PaymentForm = () => {
       payment_method: {
         card: elements.getElement(CardElement),
         billing_details: {
-          name: displayName ? displayName : "Guest",
-          email: email ? email : "No email provided",
+          name: currentUser ? currentUser.displayName : "Guest",
+          email: currentUser.email ? currentUser.email : "No email provided",
         },
       },
     });
