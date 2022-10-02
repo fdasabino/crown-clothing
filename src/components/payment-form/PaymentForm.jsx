@@ -6,6 +6,7 @@ import { selectCurrentUser } from "../../store/user/userSelector";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import Button from "../button/Button";
 import "./PaymentForm.scss";
+import { Link } from "react-router-dom";
 
 const PaymentForm = () => {
   const stripe = useStripe();
@@ -58,7 +59,12 @@ const PaymentForm = () => {
 
   return (
     <>
-      {amount > 0 && (
+      {!currentUser && (
+        <Link to="/auth" className="bg-light px-4 py-3 my-3 text-uppercase font-weight-bold">
+          Login to Proceed
+        </Link>
+      )}
+      {amount > 0 && currentUser && (
         <div className="container">
           <div className="row">
             <div className="bg-light px-4 py-3 my-3 text-uppercase font-weight-bold">
