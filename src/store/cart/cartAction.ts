@@ -1,7 +1,7 @@
 import { CART_ACTION_TYPES, CartItem } from "./cartActionTypes";
 import { CategoryItem } from "../categories/categoriesActionTypes";
 
-import { createAction, withMatcher, Action, ActionWithPayload } from "../../reducer/reducerUtils";
+import { createAction, withMatcher, ActionWithPayload } from "../../reducer/reducerUtils";
 import { toast } from "react-toastify";
 
 const addCartItem = (cartItems: CartItem[], productToAdd: CategoryItem): CartItem[] => {
