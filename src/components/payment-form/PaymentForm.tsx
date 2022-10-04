@@ -7,6 +7,9 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import Button from "../button/Button";
 import "./PaymentForm.scss";
 import { Link } from "react-router-dom";
+import { StripeCardElement } from "@stripe/stripe-js";
+
+const ifValidCardElement = (card: StripeCardElement | null): card is StripeCardElement => card !== null;
 
 const PaymentForm = () => {
   const stripe = useStripe();
@@ -38,7 +41,7 @@ const PaymentForm = () => {
 
     const cardDetails = elements.getElement(CardElement);
 
-    if (cardDetails === null) return;
+    if (!ifValidCardElement(cardDetails)) return;
 
     const paymentResult = await stripe.confirmCardPayment(client_secret, {
       payment_method: {
