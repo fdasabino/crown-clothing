@@ -1,10 +1,16 @@
+import { FC } from "react";
+import { CategoryItem } from "../../store/categories/categoriesActionTypes";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../../store/cart/cartAction";
 import { selectCartItems } from "../../store/cart/cartSelector";
 import Button from "../button/Button";
 import "./ProductCard.scss";
 
-const ProductCard = ({ product }) => {
+type ProductCardProps = {
+  product: CategoryItem;
+};
+
+const ProductCard: FC<ProductCardProps> = ({ product }) => {
   const { name, price, imageUrl } = product;
   const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);

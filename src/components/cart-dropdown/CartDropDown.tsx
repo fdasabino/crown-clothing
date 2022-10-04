@@ -3,10 +3,10 @@ import { useSelector } from "react-redux";
 import { selectCartItems } from "../../store/cart/cartSelector";
 import { useNavigate } from "react-router-dom";
 import CartItem from "../cart-item/CartItem";
-import Button from "../../components/button/Button";
+import Button from "../button/Button";
 import "./CartDropDown.scss";
 
-const CartDropDown = ({ handleClose }) => {
+const CartDropDown = () => {
   const cartItems = useSelector(selectCartItems);
   const navigate = useNavigate();
 
@@ -27,7 +27,6 @@ const CartDropDown = ({ handleClose }) => {
         disabled={cartItems.length === 0}
         onClick={() => {
           goToCheckoutHandler();
-          handleClose();
         }}
       >
         GO TO CHECKOUT

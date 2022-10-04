@@ -124,7 +124,7 @@ const Navigation = () => {
                 )}
                 <Container className="d-flex justify-content-center align-items-center">
                   <CartIcon />
-                  {isCartOpen && <CartDropDown handleClose={handleClose} />}
+                  {isCartOpen && <CartDropDown />}
                 </Container>
               </Nav>
             </Container>
