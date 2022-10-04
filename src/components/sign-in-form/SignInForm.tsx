@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { googleSignInStart, emailSignInStart } from "../../store/user/userAction";
@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import FormInput from "../form-input/FormInput";
 import Button from "../button/Button";
 import "./SignInForm.scss";
+import { AuthError, AuthErrorCodes } from "firebase/auth";
 
 const defaultFormFields = {
   email: "",
@@ -19,7 +20,7 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
-  const handleFormChange = (event) => {
+  const handleFormChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormFields({
       ...formFields,
@@ -35,7 +36,7 @@ const SignInForm = () => {
     dispatch(googleSignInStart());
   };
 
-  const handleFormSubmit = async (event) => {
+  const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
@@ -45,19 +46,12 @@ const SignInForm = () => {
       toast.success(`You're now logged in as ${email}`);
     } catch (error) {
       // switch to different case according to the error
-
-      switch (error.code) {
-        case "auth/wrong-password":
-          toast.error("Incorrect password for email address.");
-          break;
-
-        case "auth/user-not-found":
-          toast.error("Incorrect username. Please Try again.");
-          break;
-
-        default:
-          console.log(error);
-          break;
+      if ((error as AuthError).code === AuthErrorCodes.INVALID_PASSWORD) {
+        toast.error("Incorrect password for email address.");
+      } else if ((error as AuthError).code === AuthErrorCodes.INVALID_EMAIL) {
+        toast.error("Incorrect password for email address.");
+      } else {
+        return;
       }
     }
   };
@@ -67,7 +61,7 @@ const SignInForm = () => {
       <span>
         <h3>Login with your email and password</h3>
       </span>
-      <form onSubmit={handleFormSubmit}>
+      <form onSubmit={(e) => handleFormSubmit(e)}>
         <FormInput
           label="Email"
           type="email"
@@ -89,7 +83,7 @@ const SignInForm = () => {
           <Button type="submit">Login</Button>
         </div>
       </form>
-      <Button type="button" buttonType="google" onClick={() => loginWithGoogle()}>
+      <Button type="button" onClick={() => loginWithGoogle()}>
         <div>
           Login with Google <FcGoogle size={18} />
         </div>

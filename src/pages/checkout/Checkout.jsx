@@ -29,11 +29,7 @@ const Checkout = () => {
                         <li className="d-flex flex-column justify-content-center py-3 border-bottom">
                           <div className="checkout__card-container">
                             {cartItems.map((cartItem) => (
-                              <CheckoutItem
-                                key={cartItem.id}
-                                cartItem={cartItem}
-                                id={cartItem.id}
-                              />
+                              <CheckoutItem key={cartItem.id} cartItem={cartItem} id={cartItem.id} />
                             ))}
                           </div>
                         </li>
@@ -61,7 +57,7 @@ const Checkout = () => {
                   className="form-control border-0"
                 />
                 <div className="input-group-append border-0">
-                  <Button buttonType="inverted" to="/" disabled={cartTotal === 0}>
+                  <Button to="/" disabled={cartTotal === 0}>
                     Enter coupon code
                   </Button>
                 </div>

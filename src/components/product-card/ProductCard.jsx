@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../../store/cart/cartAction";
 import { selectCartItems } from "../../store/cart/cartSelector";
-import Button, { ButtonTypes } from "../button/Button";
+import Button from "../button/Button";
 import "./ProductCard.scss";
 
 const ProductCard = ({ product }) => {
@@ -18,9 +18,7 @@ const ProductCard = ({ product }) => {
         <span className="product-card__name">{name}</span>
         <span className="product-card__price">${price}</span>
       </div>
-      <Button buttonType={ButtonTypes.inverted} onClick={addProductToCart}>
-        Add to card
-      </Button>
+      <Button onClick={addProductToCart}>Add to card</Button>
     </div>
   );
 };

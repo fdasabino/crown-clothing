@@ -17,7 +17,7 @@ const Home = () => {
                 <h2 className="text-white text-uppercase mb-3">20% off on new season</h2>
                 <div className="link-width">
                   <Link to="/shop">
-                    <Button buttonType="inverted">Browse collections</Button>
+                    <Button>Browse collections</Button>
                   </Link>
                 </div>
               </div>
@@ -28,9 +28,7 @@ const Home = () => {
         {/* <!-- CATEGORIES SECTION--> */}
         <section className="pt-5">
           <header className="text-center">
-            <p className="small text-muted small text-uppercase mb-1">
-              Carefully created collections
-            </p>
+            <p className="small text-muted small text-uppercase mb-1">Carefully created collections</p>
             <h2 className="h5 text-uppercase mb-4">Browse our categories</h2>
           </header>
           <div className="row">

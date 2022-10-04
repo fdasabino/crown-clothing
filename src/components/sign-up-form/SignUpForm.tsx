@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
 import { signUpStart } from "../../store/user/userAction";
 import { toast } from "react-toastify";
@@ -6,6 +6,7 @@ import FormInput from "../form-input/FormInput";
 import Button from "../button/Button";
 import "./SignUpForm.scss";
 import { useNavigate } from "react-router-dom";
+import { AuthErrorCodes, AuthError } from "firebase/auth";
 
 const defaultFormFields = {
   displayName: "",
@@ -20,7 +21,7 @@ const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
-  const handleFormChange = (event) => {
+  const handleFormChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormFields({
       ...formFields,
@@ -32,7 +33,7 @@ const SignUpForm = () => {
     setFormFields(defaultFormFields);
   };
 
-  const handleFormSubmit = async (event) => {
+  const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (password !== confirmPassword) {
@@ -48,10 +49,8 @@ const SignUpForm = () => {
 
       //leveraging the error code
     } catch (error) {
-      if (error.code === "auth/email-already-in-use") {
-        toast.error(
-          `Email address you entered is already in use. Try again using a different one.`
-        );
+      if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
+        toast.error(`Email address you entered is already in use. Try again using a different one.`);
       }
     }
   };
